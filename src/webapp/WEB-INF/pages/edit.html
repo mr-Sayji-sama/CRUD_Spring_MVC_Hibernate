@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<!--/*@thymesVar id="user" type="web.model.User"*/-->
+<form action="#" th:action="@{/edit}" th:object="${user}" method="post">
+    <div>
+        <label>firstName:</label>
+        <input type="text" th:field="*{firstName}" placeholder="string" />
+    </div>
+    <div>
+        <label>lastName:</label>
+        <input type="text" th:field="*{lastName}" placeholder="string" />
+    </div>
+    <div>
+        <label>email:</label>
+        <input type="text" th:field="*{email}" placeholder="string" />
+    </div>
+    <input type="hidden" th:field="*{id}" id="id">
+    <button name="action" type="submit" value="save">Save</button>
+    <button name="action" type="submit" value="cancel">Cancel</button>
+</form>
+</body>
+</html>
