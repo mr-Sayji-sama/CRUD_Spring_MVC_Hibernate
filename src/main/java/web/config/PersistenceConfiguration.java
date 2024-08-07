@@ -18,22 +18,16 @@ import javax.persistence.EntityManagerFactory;
 import java.util.Optional;
 import java.util.Properties;
 
-
-// 1. Read spring-core-tutorial and spring-jdbc-mvc-tutorial codes before starting this project because primary annotations and mvc logic explained there
 @Configuration
 @ComponentScan(basePackages = "web")
 @EnableTransactionManagement
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
-//@PropertySource("file:/web/resource/application.properties")
-// 2. Enabling Spring JPA wrapper over introduced package
 @EnableJpaRepositories(basePackages = "web")
 public class PersistenceConfiguration {
 
-    // 3. Loading application configuration with Spring Environment class
     @Autowired
     private Environment env;
 
-    // 4. apply main configuration Datasource from application.properties file and configuration datasource connection pool
     @Bean
     public BasicDataSource dataSource() {
 
@@ -44,7 +38,6 @@ public class PersistenceConfiguration {
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
 
-        // apply connection pooling properties
         dataSource.setInitialSize(Integer.parseInt(Optional.ofNullable(env.getProperty("dbcp.initial.size")).orElse("0")));
         dataSource.setMaxIdle(Integer.parseInt(Optional.ofNullable(env.getProperty("dbcp.max.idle")).orElse("5")));
         dataSource.setMaxTotal(Integer.parseInt(Optional.ofNullable(env.getProperty("dbcp.max.total")).orElse("0")));
@@ -53,7 +46,6 @@ public class PersistenceConfiguration {
         return dataSource;
     }
 
-    // 5. define Hibernate bean factory and apply its data source and its additional configuration such as Database dialect or even Cache layer 2 for example HikariCP
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
@@ -80,7 +72,6 @@ public class PersistenceConfiguration {
         return hibernateProperties;
     }
 
-    // 6. define transaction manager bean for enabling Insert/Update/Delete transaction management with @Transactional annotation over Service layer
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();

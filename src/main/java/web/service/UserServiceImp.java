@@ -12,15 +12,8 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
-    //private UserDao userDao = new UserDaoJDBCImpl();
-    //private UserDaoJDBCImpl userDao;
     @Autowired
     private UserHb  userDao;
-    //public void setuserDao(UserDaoJDBCImpl userDao) {
-    //    this.userDao = userDao;
-    //}
-    //private userDao UserDaoJDBCImpl;
-    //private userDao = new UserDaoJDBCImpl();
 
     @Transactional
     @Override
