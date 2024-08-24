@@ -19,9 +19,9 @@ import java.util.Optional;
 import java.util.Properties;
 
 @Configuration
+@PropertySource("/WEB-INF/classes/db.properties")
 @ComponentScan(basePackages = "web")
 @EnableTransactionManagement
-@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories(basePackages = "web")
 public class PersistenceConfiguration {
 
@@ -32,6 +32,8 @@ public class PersistenceConfiguration {
     public BasicDataSource dataSource() {
 
         final BasicDataSource dataSource = new BasicDataSource();
+
+        System.out.println(env.getProperty("classpath"));
 
         dataSource.setDriverClassName(env.getProperty("db.driver.class"));
         dataSource.setUrl(env.getProperty("db.url"));
